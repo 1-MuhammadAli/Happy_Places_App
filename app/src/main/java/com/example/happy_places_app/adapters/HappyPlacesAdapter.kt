@@ -1,6 +1,8 @@
 package com.example.happy_places_app.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happy_places_app.R
+import com.example.happy_places_app.activities.AddHappyPlaceActivity
+import com.example.happy_places_app.activities.MainActivity
 import com.example.happy_places_app.models.HappyPlaceModel
 
 open class HappyPlacesAdapter(
@@ -64,6 +68,13 @@ open class HappyPlacesAdapter(
                 }
             }
         }
+    }
+
+    fun notifyEditItem(activity: Activity, position: Int, requestCode: Int){
+        val intent = Intent(context, AddHappyPlaceActivity::class.java)
+        intent.putExtra(MainActivity.EXTRA_PLACE_DETAILS, list[position])
+        activity.startActivityForResult(intent, requestCode)
+        notifyItemChanged(position)
     }
 
     /**
