@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.happy_places_app.adapters.HappyPlacesAdapter
 import com.example.happy_places_app.database.DatabaseHandler
 import com.example.happy_places_app.databinding.ActivityMainBinding
 import com.example.happy_places_app.models.HappyPlaceModel
@@ -23,15 +26,27 @@ class MainActivity : AppCompatActivity() {
         getHappyPlacesListFromLocalDB()
     }
 
+    private fun setupHappyPlacesRecyclerView(
+        happyPlaceList: ArrayList<HappyPlaceModel>){
+        binding!!.rvHappyPlacesList.layoutManager =
+            LinearLayoutManager(this)
+        binding!!.rvHappyPlacesList.setHasFixedSize(true)
+
+        val placesAdapter = HappyPlacesAdapter(this,happyPlaceList)
+        binding!!.rvHappyPlacesList.adapter = placesAdapter
+    }
+
     private fun getHappyPlacesListFromLocalDB(){
         val dbHandler = DatabaseHandler(this)
         val getHappyPlaceList : ArrayList<HappyPlaceModel> = dbHandler.getHappyPlaceList()
 
         if (getHappyPlaceList.size > 0){
-            for (i in getHappyPlaceList){
-                Log.e("Title", i.title)
-                Log.e("Description", i.description)
-            }
+               binding!!.rvHappyPlacesList.visibility = View.VISIBLE
+               binding!!.tvNoRecordsAvailable.visibility = View.GONE
+               setupHappyPlacesRecyclerView(getHappyPlaceList)
+        }else{
+            binding!!.rvHappyPlacesList.visibility = View.GONE
+            binding!!.tvNoRecordsAvailable.visibility = View.VISIBLE
         }
 
     }
