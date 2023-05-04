@@ -12,5 +12,7 @@
     <string name="image_content_description">image</string>
 
     <string name="google_maps_api_key">AIzaSyBtrdL0Ivdw-mk6UXbnLqUVb4SZVsr1-SA</string>
+
+    <string name="btn_text_view_on_map">VIEW ON MAP</string>
     <!--END-->
 </resources>
