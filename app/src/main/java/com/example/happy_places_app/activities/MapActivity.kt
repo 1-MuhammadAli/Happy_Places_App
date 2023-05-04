@@ -34,7 +34,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         // START
         if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
             mHappyPlaceDetails =
-                intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+                intent.getParcelableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel?
         }
 
         if (mHappyPlaceDetails != null) {
